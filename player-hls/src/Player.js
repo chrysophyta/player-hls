@@ -34,6 +34,10 @@ class HlsPlayer extends React.Component {
     }
   }
 
+  componentWillUpdate() {
+    this._initPlayer();
+  }
+
   _initPlayer(platform) {
     let { src, autoplay, hlsConfig } = this.props;
     let { video: $video } = this.refs;
@@ -69,7 +73,7 @@ class HlsPlayer extends React.Component {
   }
 
   render() {
-    const { id, controls, poster, className, preload, style } = this.props;
+    const { id, controls, poster, className, preload, style, src } = this.props;
     return (
       <PlayerBlock key={this.state.playerId}>
         <video
@@ -80,6 +84,7 @@ class HlsPlayer extends React.Component {
           className={className}
           style={style}
           preload={preload}
+          src={src}
         />
       </PlayerBlock>
     );
@@ -106,8 +111,8 @@ HlsPlayer.defaultProps = {
 export default HlsPlayer;
 
 const PlayerBlock = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
+  width: 50vw;
+  height: 50vh;
+  position: relative;
   top: 0;
 `;
