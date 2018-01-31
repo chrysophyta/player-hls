@@ -14,7 +14,7 @@ class Controls extends React.Component {
 
   handleSubmit(event) {
     this.setState({ src: this.input.value });
-    // event.preventDefault();
+    event.preventDefault();
   }
 
   render() {

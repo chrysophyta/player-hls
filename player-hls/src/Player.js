@@ -35,7 +35,14 @@ class HlsPlayer extends React.Component {
   }
 
   componentWillUpdate() {
-    this._initPlayer();
+    if (
+      navigator.userAgent.match(/Chrome[^ ]+/) &&
+      navigator.userAgent.match(/Chrome[^ ]+/)[0].match(/[0-9]+/) > 50
+    ) {
+      this._initPlayer(DEVICE.CHROME);
+    } else {
+      this._initPlayer();
+    }
   }
 
   _initPlayer(platform) {
