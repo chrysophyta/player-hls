@@ -118,8 +118,8 @@ HlsPlayer.defaultProps = {
 export default HlsPlayer;
 
 const PlayerBlock = styled.div`
-  width: 50vw;
-  height: 50vh;
+  width: 100vw;
   position: relative;
   top: 0;
 `;
+// height: 100vh;
