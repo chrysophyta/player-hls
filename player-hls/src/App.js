@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Player from './Player';
 import Controls from './Controls';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
