@@ -7,10 +7,16 @@ class Controls extends React.Component {
     super(props);
     this.state = {
       style: { width: '800px' },
-      src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8'
+      src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
+      playbackRate: 1
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+  componentDidMount() {
+    let player = document.querySelector('video');
+    player.playbackRate = this.state.playbackRate;
   }
 
   handleSubmit(event) {
@@ -19,9 +25,14 @@ class Controls extends React.Component {
   }
 
   handleInputChange(event) {
-    console.log(event.target.value);
     this.setState({
       style: { width: event.target.value }
+    });
+  }
+  handleSelect(event) {
+    console.log(event.target.value);
+    this.setState({
+      playbackRate: event.target.value
     });
   }
   render() {
@@ -32,6 +43,7 @@ class Controls extends React.Component {
           controls={true}
           autoplay={true}
           style={this.state.style}
+          playbackRate={this.state.playbackRate}
         />
 
         <form onSubmit={this.handleSubmit}>
@@ -55,12 +67,16 @@ class Controls extends React.Component {
           </label>
 
           <label>
-            <input
-              name="random"
-              defaultValue="enter video url"
-              type="text"
-              value={this.state.random}
-            />
+            Playback Rate
+            <select
+              name="playbackRate"
+              defaultValue="1"
+              onChange={this.handleSelect}>
+              <option value=".75">0.75</option>
+              <option value="1">1</option>
+              <option value="1.25">1.25</option>
+              <option value="1.5">1.5</option>
+            </select>
           </label>
 
           <input type="submit" value="Submit" />
@@ -68,6 +84,7 @@ class Controls extends React.Component {
       </div>
     );
   }
+  x;
 }
 
 export default Controls;

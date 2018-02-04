@@ -7,7 +7,6 @@ import { DEVICE } from './config';
 class HlsPlayer extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       playerId: Date.now()
     };
@@ -34,20 +33,24 @@ class HlsPlayer extends React.Component {
     }
   }
 
-  componentWillUpdate() {
-    if (
-      navigator.userAgent.match(/Chrome[^ ]+/) &&
-      navigator.userAgent.match(/Chrome[^ ]+/)[0].match(/[0-9]+/) > 50
-    ) {
-      this._initPlayer(DEVICE.CHROME);
-    } else {
-      this._initPlayer();
+  componentWillUpdate(nextProps) {
+    console.log(this.state);
+    this.elements.video.playbackRate = nextProps.playbackRate;
+    if (this.props.src !== nextProps.src) {
+      if (
+        navigator.userAgent.match(/Chrome[^ ]+/) &&
+        navigator.userAgent.match(/Chrome[^ ]+/)[0].match(/[0-9]+/) > 50
+      ) {
+        this._initPlayer(DEVICE.CHROME);
+      } else {
+        this._initPlayer();
+      }
     }
   }
 
   _initPlayer(platform) {
     let { src, autoplay, hlsConfig } = this.props;
-    let { video: $video } = this.refs;
+    let { video: $video } = this.elements;
 
     switch (platform) {
       case DEVICE.CHROME:
@@ -84,7 +87,7 @@ class HlsPlayer extends React.Component {
     return (
       <PlayerBlock key={this.state.playerId}>
         <video
-          ref="video"
+          ref={a => (this.elements = { video: a })}
           id={id}
           controls={controls}
           poster={poster}
